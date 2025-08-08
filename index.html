@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethical AI in HR: Detecting & Fixing Bias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #e15759;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .active::after {
+            width: 100%;
+        }
+
+        .risk-meter {
+            background: linear-gradient(90deg, #4CAF50 0%, #FFC107 50%, #F44336 100%);
+        }
+
+        .quote-card {
+            border-left: 4px solid #4e79a7;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .floating-card {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 20px rgba(78, 121, 167, 0.3);
+            }
+
+            to {
+                box-shadow: 0 0 30px rgba(78, 121, 167, 0.6);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-[#4e79a7]">AI Ethics HR</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link active text-gray-800">Home</a>
+                    <a href="#dilemma" class="nav-link text-gray-600">The Dilemma</a>
+                    <a href="#analysis" class="nav-link text-gray-600">Computational Analysis</a>
+                    <a href="#circumnavigate" class="nav-link text-gray-600">How to Circumnavigate</a>
+                    <a href="#resources" class="nav-link text-gray-600">Resources</a>
+                </div>
+                <button class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-white shadow-lg" id="mobileMenu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 bg-gray-100">Home</a>
+            <a href="#dilemma" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600">The Dilemma</a>
+            <a href="#analysis" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600">Computational
+                Analysis</a>
+            <a href="#circumnavigate" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600">How to
+                Circumnavigate</a>
+            <a href="#resources" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600">Resources</a>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="py-16 gradient-bg text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">AI Bias in HR: The Hidden Threat to Workplace
+                        Equality</h1>
+                    <p class="text-xl mb-8">Learn to detect and fix algorithmic discrimination in performance
+                        evaluations</p>
+                    <a href="#dilemma"
+                        class="bg-[#e15759] hover:bg-[#d14a4c] text-white font-bold py-3 px-6 rounded-lg transition duration-300 inline-flex items-center pulse-glow">
+                        Explore the Dilemma <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="bg-white p-6 rounded-lg text-gray-800 floating-card">
+                        <h3 class="text-xl font-bold mb-4">Your Mission</h3>
+                        <p class="mb-4">As an HR professional, you've discovered your AI performance evaluation system
+                            is biased against underrepresented groups. Your senior executive doesn't believe you. What
+                            do you do?</p>
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <p class="text-sm font-semibold text-red-800">⚠️ Ethical Dilemma</p>
+                            <p class="text-sm text-red-700">Employees from minority backgrounds consistently receive
+                                lower ratings despite similar contributions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Dilemma Section -->
+    <section id="dilemma" class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-[#4e79a7] mb-12 text-center">THE DILEMMA: WHEN AI DECIDES YOUR CAREER
+            </h2>
+
+            <!-- Main Dilemma Card -->
+            <div class="bg-white rounded-xl shadow-2xl p-8 mb-12 border border-gray-100">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <!-- Left Column: Text Content -->
+                    <div class="lg:w-1/2">
+                        <div
+                            class="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-lg mb-6 border-l-4 border-red-500">
+                            <h3 class="text-2xl font-bold text-red-800 mb-4">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>Your Ethical Challenge
+                            </h3>
+                            <p class="text-lg text-gray-700 mb-4">
+                                You're the second-in-charge of implementing an AI-driven performance evaluation system.
+                                The
+                                system uses machine learning to analyze productivity metrics, project outcomes, and
+                                employee
+                                engagement surveys. Despite its advanced capabilities, you've noticed the AI system
+                                inadvertently introduces biases, favoring certain demographics while consistently giving
+                                lower ratings to employees from underrepresented groups <strong>(Dastin, 2018)</strong>.
+                            </p>
+                        </div>
+
+                        <h3 class="text-2xl font-semibold text-[#4e79a7] mb-6">The Core Problem</h3>
+                        <p class="text-gray-700 mb-6 text-lg">
+                            The AI system, trained on historical data, has learned to perpetuate existing workplace
+                            inequalities:
+                        </p>
+                        <div class="space-y-4 mb-8">
+                            <div
+                                class="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border border-yellow-200">
+                                <h4 class="font-semibold text-orange-800 mb-2">
+                                    <i class="fas fa-search mr-2"></i>Pattern Recognition Failure
+                                </h4>
+                                <p class="text-gray-700">Algorithms mistake historical inequities for "merit" patterns
+                                    <strong>(Raghavan et al., 2020)</strong>
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-r from-red-50 to-pink-50 p-4 rounded-lg border border-red-200">
+                                <h4 class="font-semibold text-red-800 mb-2">
+                                    <i class="fas fa-gavel mr-2"></i>Real Harm
+                                </h4>
+                                <p class="text-gray-700">At HireVue, facial analysis AI disproportionately rejected
+                                    neurodivergent applicants, leading to an EEOC lawsuit <strong>(U.S. EEOC,
+                                        2021)</strong></p>
+                            </div>
+                            <div
+                                class="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200">
+                                <h4 class="font-semibold text-purple-800 mb-2">
+                                    <i class="fas fa-mask mr-2"></i>Lack of Transparency
+                                </h4>
+                                <p class="text-gray-700">"Black box" algorithms hide biased logic from stakeholders</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-[#4e79a7]">
+                            <blockquote class="text-xl italic text-gray-800">
+                                <i class="fas fa-quote-left mr-2 text-[#4e79a7]"></i>
+                                "AI doesn't eliminate bias—it automates it."<br>
+                                <span class="text-sm text-gray-600">— MIT Sloan Management Review (2022)</span>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Visual Elements -->
+                    <div class="lg:w-1/2 space-y-8">
+                        <!-- Enhanced Flowchart -->
+                        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg border border-blue-200">
+                            <h4 class="text-xl font-bold text-[#4e79a7] mb-4 text-center">
+                                <i class="fas fa-sync-alt mr-2"></i>Bias Lifecycle
+                            </h4>
+                            <img src="assets/Biased Hiring Flowchart.png" alt="Biased Hiring Flowchart"
+                                style="width: 100%; height: 300px; object-fit: contain;"
+                                class="mb-4 rounded-lg shadow-lg">
+                            <p class="text-sm text-gray-600 text-center font-medium">
+                                <strong>How bias enters AI systems</strong><br>
+                                Historical data → Flawed pattern recognition → Discriminatory outputs
+                            </p>
+                        </div>
+
+                        <!-- Enhanced Statistics -->
+                        <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-lg border border-green-200">
+                            <h4 class="text-xl font-bold text-[#4e79a7] mb-4 text-center">
+                                <i class="fas fa-chart-line mr-2"></i>Key Statistics
+                            </h4>
+                            <div class="space-y-3">
+                                <div
+                                    class="flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                    <div
+                                        class="bg-gradient-to-r from-red-500 to-pink-500 text-white p-3 rounded-full mr-4">
+                                        <i class="fas fa-balance-scale text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-lg text-gray-800">72%</div>
+                                        <div class="text-sm text-gray-600">of AI systems show gender bias</div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                    <div
+                                        class="bg-gradient-to-r from-orange-500 to-yellow-500 text-white p-3 rounded-full mr-4">
+                                        <i class="fas fa-eye-slash text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-lg text-gray-800">83%</div>
+                                        <div class="text-sm text-gray-600">of HR leaders use AI without bias audits
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                                    <div
+                                        class="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 rounded-full mr-4">
+                                        <i class="fas fa-shield-alt text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-lg text-gray-800">40%</div>
+                                        <div class="text-sm text-gray-600">reduction in hiring bias with ethical AI
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HireVue EEOC Lawsuit Timeline - Enhanced -->
+            <div class="bg-white rounded-xl shadow-2xl p-8 mb-8 border border-gray-100">
+                <h3 class="text-3xl font-bold text-[#4e79a7] mb-8 text-center">
+                    <i class="fas fa-file-alt mr-3"></i>Real-World Case: HireVue EEOC Lawsuit
+                </h3>
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <div class="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-lg border border-red-200 mb-6">
+                            <h4 class="text-2xl font-bold text-red-800 mb-4">
+                                <i class="fas fa-gavel mr-2"></i>What Happened
+                            </h4>
+                            <p class="text-gray-700 mb-4 text-lg">
+                                HireVue's AI video interview system used facial analysis to evaluate candidates,
+                                disproportionately rejecting neurodivergent applicants and people of color. This led to
+                                an EEOC investigation and lawsuit in 2021.
+                            </p>
+                            <div class="bg-red-100 p-4 rounded-lg border-l-4 border-red-500">
+                                <p class="text-sm font-semibold text-red-800">
+                                    <i class="fas fa-lightbulb mr-2"></i>Key Lesson
+                                </p>
+                                <p class="text-sm text-red-700">AI systems can amplify existing biases when not properly
+                                    audited and monitored.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+                            <h4 class="text-xl font-bold text-blue-800 mb-4">
+                                <i class="fas fa-chart-bar mr-2"></i>Impact Metrics
+                            </h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-red-600">30%</div>
+                                    <div class="text-sm text-gray-600">Lower scores for neurodiverse candidates</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-red-600">40%</div>
+                                    <div class="text-sm text-gray-600">Fewer minority candidates advanced</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:w-1/2">
+                        <div class="bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-lg border border-gray-200">
+                            <h4 class="text-xl font-bold text-[#4e79a7] mb-4 text-center">
+                                <i class="fas fa-calendar-alt mr-2"></i>Timeline
+                            </h4>
+                            <img src="assets/HireVue EEOC Lawsuit.svg" alt="HireVue EEOC Lawsuit Timeline"
+                                style="width: 100%; height: 400px; object-fit: contain;" class="rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Computational Analysis Section -->
+    <section id="analysis" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-[#4e79a7] mb-12 text-center">DECONSTRUCTING BIAS: COMPUTATIONAL THINKING
+                APPROACH</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-12">
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg mb-8 border-l-4 border-[#4e79a7]">
+                    <blockquote class="text-xl italic text-gray-800">
+                        "You can't fix what you don't understand. Computational thinking gives HR leaders the tools to
+                        diagnose bias at its source."<br>
+                        <span class="text-sm text-gray-600">— Dr. Miriam Johnson, AI Ethics Researcher</span>
+                    </blockquote>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-[#4e79a7] mb-6">THE 4-STEP DISSECTION FRAMEWORK</h3>
+                <p class="text-gray-700 mb-6">Apply these computational thinking components to any HR tech dilemma:</p>
+
+                <div class="overflow-x-auto mb-8">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg">
+                        <thead class="bg-gradient-to-r from-[#4e79a7] to-[#3a5f8a] text-white">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Component</th>
+                                <th class="py-3 px-4 text-left">Application to AI Bias</th>
+                                <th class="py-3 px-4 text-left">Key Question</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 font-medium bg-gray-50">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-puzzle-piece text-2xl text-[#e15759] mr-3"></i>
+                                        <span><strong>Decomposition</strong></span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm mb-2">Breaking the system into parts:</p>
+                                    <ol class="list-decimal pl-4 text-sm space-y-1">
+                                        <li>Training data sources</li>
+                                        <li>Algorithm weighting logic</li>
+                                        <li>Feedback mechanisms</li>
+                                    </ol>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm italic text-gray-700">"What subsystems influence evaluations?"</p>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 font-medium bg-gray-50">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-chart-line text-2xl text-[#e15759] mr-3"></i>
+                                        <span><strong>Pattern Recognition</strong></span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm mb-2">Identifying flawed correlations:</p>
+                                    <ul class="list-disc pl-4 text-sm space-y-1">
+                                        <li>"Male traits = Leadership"</li>
+                                        <li>"State schools = Lower potential"</li>
+                                    </ul>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm italic text-gray-700">"What 'success patterns' might encode bias?"
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 font-medium bg-gray-50">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-filter text-2xl text-[#e15759] mr-3"></i>
+                                        <span><strong>Abstraction</strong></span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm mb-2">Filtering to the core flaw:</p>
+                                    <ul class="list-disc pl-4 text-sm space-y-1">
+                                        <li>Ignoring societal context of historical data</li>
+                                        <li>Overweighting superficial metrics</li>
+                                    </ul>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm italic text-gray-700">"What variables truly predict performance?"
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="py-4 px-4 font-medium bg-gray-50">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-cogs text-2xl text-[#e15759] mr-3"></i>
+                                        <span><strong>Algorithm Design</strong></span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm mb-2">Building ethical solutions:</p>
+                                    <ol class="list-decimal pl-4 text-sm space-y-1">
+                                        <li>De-bias training data</li>
+                                        <li>Add fairness constraints</li>
+                                        <li>Hybrid human-AI reviews</li>
+                                    </ol>
+                                </td>
+                                <td class="py-4 px-4">
+                                    <p class="text-sm italic text-gray-700">"How can we rebuild with guardrails?"</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Circumnavigate Section -->
+    <section id="circumnavigate" class="py-16 bg-gradient-to-br from-gray-100 to-blue-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-[#4e79a7] mb-12 text-center">HOW TO CIRCUMNAVIGATE AI BIAS: YOUR ACTION
+                PLAN</h2>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-12">
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg mb-8 border-l-4 border-[#4e79a7]">
+                    <blockquote class="text-xl italic text-gray-800">
+                        "Ethical AI isn't about perfect algorithms—it's about constant vigilance and human-centered
+                        design."<br>
+                        <span class="text-sm text-gray-600">— Dr. Timnit Gebru, AI Ethics Pioneer</span>
+                    </blockquote>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-[#4e79a7] mb-6">YOUR 4-STEP CIRCUMNAVIGATION STRATEGY</h3>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-lg border border-blue-200">
+                        <h4 class="text-xl font-semibold text-[#4e79a7] mb-4">Step 1: Document the Evidence</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Collect performance data across demographics</li>
+                            <li>• Run statistical disparity tests using Aequitas</li>
+                            <li>• Create visual reports showing bias patterns</li>
+                            <li>• Reference academic studies (Raghavan et al., 2020)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg border border-green-200">
+                        <h4 class="text-xl font-semibold text-[#4e79a7] mb-4">Step 2: Build Your Case</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Present business case: legal risks and reputation damage</li>
+                            <li>• Show ROI of fixing bias vs. potential lawsuits</li>
+                            <li>• Reference successful bias mitigation cases</li>
+                            <li>• Propose hybrid human-AI review process</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-lg border border-yellow-200">
+                        <h4 class="text-xl font-semibold text-[#4e79a7] mb-4">Step 3: Implement Technical Fixes</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Audit and diversify training data</li>
+                            <li>• Add fairness constraints to algorithms</li>
+                            <li>• Implement explainable AI (XAI) features</li>
+                            <li>• Use IBM Fairness 360 or similar tools</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200">
+                        <h4 class="text-xl font-semibold text-[#4e79a7] mb-4">Step 4: Establish Monitoring</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Set up quarterly bias audits</li>
+                            <li>• Create diverse review panels</li>
+                            <li>• Implement bias reporting channels</li>
+                            <li>• Publish transparency reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-[#4e79a7] mb-6">IMMEDIATE ACTIONS YOU CAN TAKE TODAY</h3>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                        <div
+                            class="bg-[#4e79a7] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shield-alt text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">Audit Your System</h4>
+                        <p class="text-gray-700 mb-4">Use Aequitas to test for bias in your current AI system.</p>
+                        <button onclick="downloadAequitas()"
+                            class="text-[#4e79a7] font-medium hover:text-[#3a5f8a] transition-colors">
+                            Download Aequitas Guide
+                        </button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                        <div
+                            class="bg-[#4e79a7] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">Form Review Panel</h4>
+                        <p class="text-gray-700 mb-4">Create diverse team to review AI decisions alongside human
+                            judgment.</p>
+                        <button onclick="downloadTemplate()"
+                            class="text-[#4e79a7] font-medium hover:text-[#3a5f8a] transition-colors">
+                            Download Template
+                        </button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow">
+                        <div
+                            class="bg-[#4e79a7] text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-chart-line text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">Track Metrics</h4>
+                        <p class="text-gray-700 mb-4">Monitor fairness metrics and report quarterly to leadership.</p>
+                        <button onclick="downloadDashboard()"
+                            class="text-[#4e79a7] font-medium hover:text-[#3a5f8a] transition-colors">
+                            Download Dashboard
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-[#4e79a7] to-[#3a5f8a] p-8 rounded-lg text-white">
+                    <h3 class="text-2xl font-semibold mb-4">🎯 Your Success Metrics</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Short-term (3 months):</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li>• Bias audit completed</li>
+                                <li>• Review panel established</li>
+                                <li>• Initial technical fixes implemented</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Long-term (1 year):</h4>
+                            <ul class="space-y-1 text-sm">
+                                <li>• 40% reduction in bias metrics</li>
+                                <li>• Quarterly transparency reports</li>
+                                <li>• Industry recognition for ethical AI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-[#4e79a7] mb-12 text-center">Your Ethical AI Toolkit</h2>
+
+            <div class="mb-16">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-6">Essential Downloads</h3>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div
+                        class="resource-card bg-white border border-gray-200 rounded-lg shadow-md p-6 transition duration-300">
+                        <div
+                            class="bg-[#4e79a7] text-white rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i class="fas fa-file-pdf text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">Bias Audit Checklist</h4>
+                        <p class="text-gray-700 mb-4">Step-by-step guide to auditing your HR AI systems for bias.</p>
+                        <button onclick="downloadChecklist()"
+                            class="text-[#4e79a7] font-medium inline-flex items-center hover:text-[#3a5f8a] transition-colors">
+                            Download PDF <i class="fas fa-download ml-2"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="resource-card bg-white border border-gray-200 rounded-lg shadow-md p-6 transition duration-300">
+                        <div
+                            class="bg-[#4e79a7] text-white rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i class="fas fa-file-word text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">Hybrid Review Protocol</h4>
+                        <p class="text-gray-700 mb-4">Template for combining AI and human decision-making.</p>
+                        <button onclick="downloadProtocol()"
+                            class="text-[#4e79a7] font-medium inline-flex items-center hover:text-[#3a5f8a] transition-colors">
+                            Download DOCX <i class="fas fa-download ml-2"></i>
+                        </button>
+                    </div>
+                    <div
+                        class="resource-card bg-white border border-gray-200 rounded-lg shadow-md p-6 transition duration-300">
+                        <div
+                            class="bg-[#4e79a7] text-white rounded-full w-12 h-12 flex items-center justify-center mb-4">
+                            <i class="fas fa-file-pdf text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-semibold mb-2">EU AI Act Compliance Guide</h4>
+                        <p class="text-gray-700 mb-4">Regulatory requirements for high-risk HR applications.</p>
+                        <button onclick="downloadCompliance()"
+                            class="text-[#4e79a7] font-medium inline-flex items-center hover:text-[#3a5f8a] transition-colors">
+                            Download PDF <i class="fas fa-download ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-gray-100 to-blue-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-semibold text-[#4e79a7] mb-6">References (APA 7)</h3>
+                <div class="space-y-3 text-sm">
+                    <p><strong>Dastin, J.</strong> (2018). Amazon scraps secret AI recruiting tool that showed bias
+                        against women. <em>Reuters</em>.
+                        https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G</p>
+                    <p><strong>Raghavan, M.</strong>, Barocas, S., Kleinberg, J., & Levy, K. (2020). Mitigating bias in
+                        algorithmic hiring: Evaluating claims and practices. <em>Proceedings of the 2020 Conference on
+                            Fairness, Accountability, and Transparency</em>, 469-481.</p>
+                    <p><strong>U.S. Equal Employment Opportunity Commission.</strong> (2021). <em>Artificial
+                            intelligence and algorithmic fairness initiative</em>.
+                        https://www.eeoc.gov/artificial-intelligence-and-algorithmic-fairness-initiative</p>
+                    <p><strong>MIT Sloan Management Review.</strong> (2022). The business case for AI ethics. <em>MIT
+                            Sloan Management Review</em>, 63(3), 1-8.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#4e79a7] text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">AI Ethics HR</h3>
+                    <p class="text-sm">Promoting fair and ethical AI in human resources.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-gray-300"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-gray-300"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-400 mt-6 pt-6 text-sm text-center">
+                <p>© 2023 Ethical AI in HR Initiative. All rights reserved.</p>
+                <p class="mt-2">This site meets WCAG 2.1 AA accessibility standards.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('button').addEventListener('click', function () {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    link.classList.add('text-gray-600');
+                });
+                this.classList.add('active');
+                this.classList.remove('text-gray-600');
+            });
+        });
+
+        // Download functions
+        function downloadAequitas() {
+            const content = `AI Bias Audit Guide using Aequitas
+
+Step 1: Install Aequitas
+pip install aequitas
+
+Step 2: Load your data
+import aequitas
+from aequitas.group import Group
+
+Step 3: Run bias audit
+group = Group()
+bias_report = group.get_crosstabs(your_data)
+
+Step 4: Analyze results
+- Statistical parity difference
+- Disparate impact ratio
+- Average odds difference
+
+Step 5: Document findings
+- Create visual reports
+- Identify bias patterns
+- Recommend mitigation strategies
+
+For more information, visit: https://github.com/dssg/aequitas`;
+
+            downloadFile(content, 'aequitas_guide.txt', 'text/plain');
+        }
+
+        function downloadTemplate() {
+            const content = `Hybrid Review Panel Protocol
+
+1. Panel Composition
+   - 3-5 diverse reviewers
+   - Mix of technical and HR expertise
+   - Include representatives from affected groups
+
+2. Review Process
+   - Weekly review sessions
+   - Document all decisions
+   - Track bias metrics over time
+
+3. Decision Framework
+   - Human review of AI recommendations
+   - Override capability for biased decisions
+   - Transparent reasoning documentation
+
+4. Reporting
+   - Monthly bias reports
+   - Quarterly transparency reports
+   - Annual compliance audits
+
+5. Continuous Improvement
+   - Regular training on bias detection
+   - Update protocols based on findings
+   - Stakeholder feedback integration`;
+
+            downloadFile(content, 'hybrid_review_protocol.txt', 'text/plain');
+        }
+
+        function downloadDashboard() {
+            const content = `Fairness Metrics Dashboard Template
+
+Key Metrics to Track:
+1. Statistical Parity Difference
+2. Disparate Impact Ratio
+3. Average Odds Difference
+4. Equal Opportunity Difference
+
+Monthly Reporting Template:
+- Executive Summary
+- Bias Detection Results
+- Mitigation Actions Taken
+- Risk Assessment
+- Recommendations
+
+Quarterly Deep Dive:
+- Comprehensive Bias Audit
+- Training Data Analysis
+- Algorithm Performance Review
+- Stakeholder Feedback
+- Compliance Status
+
+Annual Review:
+- Policy Updates
+- Technology Improvements
+- Training Program Updates
+- Industry Benchmarking`;
+
+            downloadFile(content, 'fairness_dashboard_template.txt', 'text/plain');
+        }
+
+        function downloadChecklist() {
+            const content = `AI Bias Audit Checklist
+
+PRE-AUDIT PREPARATION
+□ Define protected attributes (gender, race, age, etc.)
+□ Identify evaluation criteria
+□ Gather historical performance data
+□ Establish baseline metrics
+
+TECHNICAL AUDIT
+□ Review training data diversity
+□ Analyze algorithm decision logic
+□ Test for disparate impact
+□ Evaluate explainability features
+
+HUMAN FACTORS
+□ Assess review panel diversity
+□ Evaluate decision transparency
+□ Review appeal processes
+□ Check stakeholder feedback
+
+COMPLIANCE CHECK
+□ Verify legal requirements
+□ Review industry standards
+□ Assess regulatory compliance
+□ Document audit findings
+
+MITIGATION PLANNING
+□ Identify bias sources
+□ Develop correction strategies
+□ Plan implementation timeline
+□ Establish monitoring protocols`;
+
+            downloadFile(content, 'bias_audit_checklist.txt', 'text/plain');
+        }
+
+        function downloadProtocol() {
+            const content = `Hybrid Human-AI Review Protocol
+
+PURPOSE
+Ensure fair and ethical AI decision-making through human oversight and intervention.
+
+SCOPE
+All AI-driven HR decisions including:
+- Performance evaluations
+- Promotion recommendations
+- Hiring decisions
+- Compensation adjustments
+
+PROCESS
+1. AI generates initial recommendation
+2. Human reviewer evaluates for bias
+3. Panel discusses edge cases
+4. Final decision documented
+5. Feedback loop established
+
+OVERRIDE CRITERIA
+- Statistical bias detected
+- Context not captured by AI
+- Ethical concerns raised
+- Stakeholder complaints
+
+DOCUMENTATION
+- Decision rationale
+- Override justification
+- Bias detection results
+- Improvement recommendations`;
+
+            downloadFile(content, 'hybrid_protocol.txt', 'text/plain');
+        }
+
+        function downloadCompliance() {
+            const content = `EU AI Act Compliance Guide for HR
+
+HIGH-RISK AI SYSTEMS
+- Performance evaluation systems
+- Hiring and recruitment tools
+- Promotion recommendation systems
+- Compensation analysis tools
+
+COMPLIANCE REQUIREMENTS
+1. Risk Management System
+2. Data Governance
+3. Technical Documentation
+4. Quality Management System
+5. Human Oversight
+6. Accuracy and Robustness
+7. Cybersecurity
+8. Fundamental Rights Impact Assessment
+
+IMPLEMENTATION TIMELINE
+- 2024: Initial assessment
+- 2025: System updates
+- 2026: Full compliance
+
+RESOURCES
+- EU AI Act: https://eur-lex.europa.eu/
+- Guidance documents available
+- Compliance tools recommended
+- Expert consultation advised`;
+
+            downloadFile(content, 'eu_ai_act_compliance.txt', 'text/plain');
+        }
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+
+</html>
